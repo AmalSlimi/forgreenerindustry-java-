@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,16 +33,26 @@ public class ServicePost implements IService<Post> {
     @Override
     public void ajouter(Post t) {
         try {
-            String req = "INSERT INTO `post`(`id_post`,`id_entreprise`, `titre`, `typeDeContenu`, `contenu`, `date`, `image`, `nbr_de_vue`) " +
-                         "VALUES (" + t.getId_post() + "," + t.getId_entreprise() + ",'" + t.getTitre() + "','" + t.getTypeDeContenu() + "','" + t.getContenu() + "','" +
-                         t.getDate() + "','" + t.getImage() + "'," + t.getNbr_de_vue() + ")";
-            
-            Statement stm = cnx.createStatement();
-            stm.executeUpdate(req);
-        }   catch (SQLException ex) { 
-                 System.out.println(ex.getMessage());
-            } 
+            String req = "INSERT INTO `post` (`id_entreprise`, `titre`, `typeDeContenu`, `contenu`, `date`, `image`) VALUES (?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement pst = cnx.prepareStatement(req);
+
+        // Ensure that the parameters are in the correct order
+            pst.setInt(1, t.getId_entreprise());
+            pst.setString(2, t.getTitre());
+            pst.setString(3, t.getTypeDeContenu());
+            pst.setString(4, t.getContenu());
+            pst.setDate(5, t.getDate());
+            pst.setString(6, t.getImage());
+
+            pst.executeUpdate();
+            System.out.println("Post added successfully");
+        } catch (SQLException ex) {
+            System.err.println("Error while adding a post: " + ex.getMessage());
+        }
     }
+
+
 
     @Override
     public void modifier(Post t) {
@@ -50,18 +61,17 @@ public class ServicePost implements IService<Post> {
             return;
         }
         try {
-            String req = "UPDATE `post` SET `id_post` = ?, `id_entreprise` = ?, `titre` = ?, `typeDeContenu` = ?, `contenu` = ?, "
-                    + "`date` = ?, `image` = ?, `nbr_de_vue` = ? WHERE `id_post` = ?" ; 
+            String req = "UPDATE post SET id_entreprise = ?, titre = ?, typeDeContenu = ?, contenu = ?, date = ?, image = ? WHERE id_post = ?";
             
             PreparedStatement pst = cnx.prepareStatement(req);
-            pst.setInt (2, t.getId_entreprise());
-            pst.setString(3, t.getTitre());
-            pst.setString(4, t.getTypeDeContenu());
-            pst.setString(5, t.getContenu());
-            pst.setDate(6, t.getDate());
-            pst.setString(7, t.getImage());
-            pst.setFloat(8, t.getNbr_de_vue());
-            pst.setInt(1, t.getId_post());
+            pst.setInt(1, t.getId_entreprise());
+            pst.setString(2, t.getTitre());
+            pst.setString(3, t.getTypeDeContenu());
+            pst.setString(4, t.getContenu());
+            pst.setDate(5, t.getDate());
+            pst.setString(6, t.getImage());
+            pst.setInt(7, t.getId_post());
+
 
             pst.executeUpdate();
         }   catch (SQLException ex) {
@@ -109,7 +119,7 @@ public class ServicePost implements IService<Post> {
                 post.setContenu(rs.getString("contenu"));
                 post.setDate(rs.getDate("date"));
                 post.setImage(rs.getString("image"));
-                post.setNbr_de_vue(rs.getFloat("nbr_de_vue"));
+                
                 return post;
             } else {
                 System.out.println("No post found with id_post = " + id_post);
@@ -141,7 +151,7 @@ public class ServicePost implements IService<Post> {
             post.setContenu(rs.getString("contenu"));
             post.setDate(rs.getDate("date"));
             post.setImage(rs.getString("image"));
-            post.setNbr_de_vue(rs.getFloat("nbr_de_vue"));
+            
             postList.add(post);
         }
     }       catch (SQLException ex) {
@@ -152,9 +162,32 @@ public class ServicePost implements IService<Post> {
      
 }
 
-}
+    public List<Post> getPostByTitre(String titre) {
+            List<Post> posts = new ArrayList();
+        try {
+            String req = "SELECT * FROM `post` WHERE `titre` = ?";
+            PreparedStatement pst = cnx.prepareStatement(req);
+            pst.setString(1, titre);
 
+            ResultSet rs = pst.executeQuery();
 
-   
+            while (rs.next()) {
+                Post post = new Post();
+                post.setId_post(rs.getInt("id_post"));
+                post.setId_entreprise(rs.getInt("id_entreprise"));
+                post.setTitre(rs.getString("titre"));
+                post.setTypeDeContenu(rs.getString("typeDeContenu"));
+                post.setContenu(rs.getString("contenu"));
+                post.setDate(rs.getDate("date"));
+                post.setImage(rs.getString("image"));
+                posts.add(post);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return posts;
+    }
+
+        
     
-
+}

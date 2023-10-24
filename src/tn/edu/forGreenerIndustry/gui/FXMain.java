@@ -25,13 +25,19 @@ public class FXMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("PostFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardFXML.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+
+            // Pass the scene to the controller
+            DashboardFXMLController controller = loader.getController();
+            controller.setScene(scene);
+
+            primaryStage.setTitle("Home");
             primaryStage.setScene(scene);
-            primaryStage.setTitle("/*******post /******");
             primaryStage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMain.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
