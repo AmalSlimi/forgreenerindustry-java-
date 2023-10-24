@@ -1,0 +1,21 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.theme-toggle .label {
+    -fx-text-fill: black;
+}
+
+.theme-toggle:selected .label {
+    -fx-text-fill: white;
+}
+
+/* Apply dark green background color when the dark theme is selected */
+.mainFxmlClass {
+    -fx-background-color: #002800 /* Dark Green Background Color */
+}
+
+

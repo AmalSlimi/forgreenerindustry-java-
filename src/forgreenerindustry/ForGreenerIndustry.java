@@ -31,15 +31,23 @@ public class ForGreenerIndustry {
             Date sqlDate = new Date(utilDate.getTime());
 
             // Create a new Post object
-            Post p1 = new Post(1, 2, "Welcome", "Event", "We have a new event", sqlDate, "url_photo.jpg", 20);
-            Post p2 = new Post(2, 5, "Radiant Youth Serum", "product", "premium skincare product developed by our trusted beauty brand", sqlDate, "url_photo.jpg", 50);
-            
-            Commentaires c1 = new Commentaires(1, 3, "This is a great post!", "Approved");
+            Post p1 = new Post(1, 2, "Welcome", "Event", "We have a new event", sqlDate, "url_photo.jpg");
+            Post p2 = new Post(2, 5, "Radiant Youth Serum", "product", "premium skincare product developed by our trusted beauty brand", sqlDate, "url_photo.jpg");
+            Post p3 = new Post(3, 3, "Special Event", "Event", "Exciting event happening next week!", sqlDate, "event_image.jpg");
+
+            Commentaires c1 = new Commentaires( 1, 3, "This is a great post!");
+            Commentaires c2 = new Commentaires( 2, 4, "Nice work on this project!");
+            Commentaires c3 = new Commentaires( 6, 1, "I have a question about this post.", "Pending");
+
+
 
             //service.ajouter(p1);
             //service.ajouter(p2);
+            // service.ajouter(p3);
             
-            commentairesService.ajouter(c1);
+            //commentairesService.ajouter(c1);
+            //commentairesService.ajouter(c2);
+            //commentairesService.ajouter(c3);
             
             //////////////////////modif///////////////////////
             
@@ -67,14 +75,14 @@ public class ForGreenerIndustry {
             //////////////////get one/////////////////////////
             
             
-            int postToRetrieveId = 7; // Replace with the ID of the post you want to retrieve
+            /*int postToRetrieveId = 1; // Replace with the ID of the post you want to retrieve
             Post retrievedPost = service.getOne(postToRetrieveId);
 
             if (retrievedPost != null) {
                 System.out.println("Retrieved Post: " + retrievedPost);
             } else {
                 System.out.println("Post not found.");
-            }
+            }*/
             
             //////////////////////get all///////////////////////
             
@@ -88,7 +96,11 @@ public class ForGreenerIndustry {
                 System.out.println("No posts found.");
             }
             
-            
+            //////////////////////////////////////////
+            List<Commentaires> commentsList = commentairesService.getAll(c1);
+            for (Commentaires comment : commentsList) {
+                System.out.println(comment);
+            }
             
 
         } catch (ParseException ex) {
