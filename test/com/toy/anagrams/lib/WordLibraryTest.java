@@ -31,41 +31,18 @@
 
 package com.toy.anagrams.lib;
 
-import tn.edu.forGreenerIndustry.services.WordLibrary;
 import java.util.Arrays;
 import junit.framework.TestCase;
 
 /**
  * Test of the functionality of {@link WordLibrary}.
  */
-public class WordLibraryTest extends TestCase {
-    WordLibrary wordLibrary;
 
-    public WordLibraryTest(String testName) {
-        super(testName);
-    }
-
-    protected void setUp() throws Exception {
-        
-    }
     
     
 
     /**
      * Test of {@link WordLibrary#isCorrect}.
      */
-    public void testIsCorrect() {
-        
-        }
-    
+ 
 
-    /**
-     * Tests whether given anagram represents the word.
-     * @param clearWord The word in clear text
-     * @param scrambledWord Scrambled version of the word
-     * @return true if the scrambledWord is correct anagram of clearWord
-     */
-    
-    
-
-}
