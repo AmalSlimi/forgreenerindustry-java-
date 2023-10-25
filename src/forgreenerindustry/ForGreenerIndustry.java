@@ -5,108 +5,78 @@
  */
 package forgreenerindustry;
 
-import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
-import tn.edu.forGreenerIndustry.entities.Commentaires;
-import tn.edu.forGreenerIndustry.entities.Post;
-import tn.edu.forGreenerIndustry.services.ServiceCommentaires;
-import tn.edu.forGreenerIndustry.services.ServicePost;
+import tn.edu.forGreenerIndustry.entities.Commande;
+
 import tn.edu.forGreenerIndustry.tools.DataSource;
 
-public class ForGreenerIndustry {
-    public static void main(String[] args) {
-        // Initialize the data source
-        DataSource.getInstance();
-
-        // Create an instance of the Post service
-        ServicePost service = new ServicePost();
-        ServiceCommentaires commentairesService = new ServiceCommentaires();
-
-        try {
-            
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date utilDate = df.parse("12/11/2012");
-            Date sqlDate = new Date(utilDate.getTime());
-
-            // Create a new Post object
-            Post p1 = new Post(1, 2, "Welcome", "Event", "We have a new event", sqlDate, "url_photo.jpg");
-            Post p2 = new Post(2, 5, "Radiant Youth Serum", "product", "premium skincare product developed by our trusted beauty brand", sqlDate, "url_photo.jpg");
-            Post p3 = new Post(3, 3, "Special Event", "Event", "Exciting event happening next week!", sqlDate, "event_image.jpg");
-
-            Commentaires c1 = new Commentaires( 1, 3, "This is a great post!");
-            Commentaires c2 = new Commentaires( 2, 4, "Nice work on this project!");
-            Commentaires c3 = new Commentaires( 6, 1, "I have a question about this post.", "Pending");
-
-
-
-            //service.ajouter(p1);
-            //service.ajouter(p2);
-            // service.ajouter(p3);
-            
-            //commentairesService.ajouter(c1);
-            //commentairesService.ajouter(c2);
-            //commentairesService.ajouter(c3);
-            
-            //////////////////////modif///////////////////////
-            
-            //int postToModifyId = 1; // Replace with the ID of the post you want to modify
-            //Post postToModify = service.getOne(postToModifyId);
-
-            //if (postToModify != null) {
-                // Modify the attributes of the Post
-               // postToModify.setTitre("Updated Title");
-               // postToModify.setContenu("Updated Content");
-
-                // Call the modifier method to save the changes
-                //service.modifier(postToModify);
-
-                //System.out.println("Post has been modified: " + postToModify);
-            //} else {
-              //  System.out.println("Post not found.");
-           // }
-            
-            ///////////////////supprim///////////////////////
-                
-            //int postToDeleteId = 10; 
-            //service.supprimer(postToDeleteId);
-
-            //////////////////get one/////////////////////////
-            
-            
-            /*int postToRetrieveId = 1; // Replace with the ID of the post you want to retrieve
-            Post retrievedPost = service.getOne(postToRetrieveId);
-
-            if (retrievedPost != null) {
-                System.out.println("Retrieved Post: " + retrievedPost);
-            } else {
-                System.out.println("Post not found.");
-            }*/
-            
-            //////////////////////get all///////////////////////
-            
-            List<Post> allPosts = service.getAll(null);
-
-            if (!allPosts.isEmpty()) {
-                for (Post post : allPosts) {
-                    System.out.println("Post: " + post);
-                }
-            } else {
-                System.out.println("No posts found.");
-            }
-            
-            //////////////////////////////////////////
-            List<Commentaires> commentsList = commentairesService.getAll(c1);
-            for (Commentaires comment : commentsList) {
-                System.out.println(comment);
-            }
-            
-
-        } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+/**
+ *
+ * @author shadha
+ */
+public class ForGreenerIndustry { 
+   public enum Role {
+    CLIENT,
+    INVESTISSEUR,
+    AGENT_ENTREPRISE,
+    LIVREUR;
 }
+    public enum Genre {
+    HOMME ,FEMME
+}
+    public enum Comp{
+        AliExpress ,
+        Glovo ,
+        Jumia ,
+        Aucune ,
+        Autre ;
+    }}
+    /**
+     * @param args the command line arguments
+     */
+   /* public static void main(String[] args) {
+        // TODO code application logic here
+        DataSource.getInstance();
+         ServiceUser service = new ServiceUser();
+         
+// User instance
+User c1 = new User(7,
+    "shahd2",
+    "nanana89898na",
+    "profile5.jpg",
+    12348888,
+    "jahahahahe@example.com",
+    "psw",
+    Role.CLIENT,
+    "123 Main St",
+    Genre.FEMME,
+    "voiture",
+    Comp.Glovo,
+   0
+); */
+//service.ajouter(c1);
+         //service.modifier(c1);
+         //getone 
+         
+        /*  User user = service.getOne(c1);
+if (user != null) {
+    System.out.println(user); // Assuming User class has a proper toString() implementation
+} else {
+    System.out.println("User not found.");
+}
+*/
+//get all 
+
+  
+    
+
+            
+        
 
 
+
+        
+    
+    
